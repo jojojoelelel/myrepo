@@ -1,0 +1,6 @@
+Flask==2.3.2
+librosa==0.11.0
+pydub==0.25.1
+torch==2.2.0+cu121
+# torch==2.7.0
+transformers==4.51.3
