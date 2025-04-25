@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  asr-api:
+    build: ./asr
+    volumes:
+      - ./asr:/app/asr-data
+    ports:
+      - "8001:8001"
+
+  elasticsearch-backend:
+    build: ./elastic-backend
+    volumes:
+      - ./asr:/app/asr-data
+    ports:
+      - "9200:9200"
+
+  
+  
