@@ -1,0 +1,125 @@
+#root {
+  /* max-width: 1280px; */
+  width: 95vw;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.innercontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  background-color: #1b1b1b;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+  overflow-x: auto;
+  border-radius: 1em;
+}
+
+.facet {
+  display: flex;
+  flex-direction: row;
+}
+
+.sui-facet.facet {
+  margin-top: 0.5%;
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid #8b9bad 1px;
+  justify-content: center;
+}
+
+.sui-facet__title {
+  text-align: start;
+  margin-left: 2em;
+  font-size: medium;
+}
+
+.sui-multi-checkbox-facet__option-label {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1% 0 1%;
+  text-align: center;
+  justify-content: center;
+  color: white;
+}
+
+.sui-multi-checkbox-facet__option-count {
+  margin-left: 0;
+}
+
+.sui-multi-checkbox-facet {
+  display: flex;
+  flex-direction: row;
+}
+
+.sui-result {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 1%;
+  border-radius: 1em;
+  border: none;
+}
+
+.sui-result-row {
+  display: flex;
+  flex-direction: row;  
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+
+.sui-result-row strong {
+  text-align: start;
+}
+
+.sui-result-value {
+  text-align: end;
+  max-width: 50%;
+  color: rgb(220, 220, 220);
+}
