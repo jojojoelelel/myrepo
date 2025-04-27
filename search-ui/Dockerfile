@@ -1,4 +1,5 @@
-FROM node:20-slim AS builder
+# FROM node:20-slim AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 COPY package.json package-lock.json ./
@@ -7,7 +8,8 @@ COPY . .
 RUN npm run build
 
 # Production image
-FROM node:20-slim
+# FROM node:20-slim
+FROM node:20-alpine
 
 WORKDIR /app
 RUN npm install -g serve

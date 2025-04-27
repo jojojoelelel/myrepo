@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   SearchProvider,
   SearchBox,
   Results,
   PagingInfo,
-  ResultsPerPage,
   Paging,
-  Sorting,
   WithSearch,
-  ErrorBoundary,
   Facet,
 } from "@elastic/react-search-ui";
-import { Layout } from "@elastic/react-search-ui-views";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import "./App.css"
@@ -120,10 +116,10 @@ export default function App() {
     <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
       {({ wasSearched }) => (
         <div className="App" style={{ display: "flex" }}>
-          {/* Main search content */}
+          {/* Content */}
           <div className="innercontainer" style={{ flex: 1 }}>
             <SearchBox />
-            {/* Sidebar for filters/facets */}
+            {/* Facets */}
             <div className="sidebar">
               <Facet className="facet" field="age" label="Age" show={999}/>
               <Facet className="facet" field="gender" label="Gender" show={999}/>
@@ -143,49 +139,5 @@ export default function App() {
       )}
     </WithSearch>
   </SearchProvider>
-
-    // <SearchProvider config={config}>
-    //   <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
-    //     {({ wasSearched }) => (
-    //       <div className="App">
-    //         <ErrorBoundary>
-    //           <Layout
-    //             header={
-    //               <SearchBox
-    //                 autocompleteMinimumCharacters={3}
-    //                 autocompleteResults={{
-    //                   linkTarget: "_blank",
-    //                   sectionTitle: "Results",
-    //                   titleField: "generated_text",  // <-- Fix this
-    //                   urlField: "",                   // <-- Optional
-    //                   shouldTrackClickThrough: false
-    //                 }}
-    //                 autocompleteSuggestions={false}
-    //                 debounceLength={300}
-    //               />
-    //             }
-    //             sideContent={
-    //               <div>
-    //                 {/* Replace with actual available fields */}
-    //                 <Facet field="age" label="Age" />
-    //                 <Facet field="gender" label="Gender" />
-    //                 <Facet field="accent" label="Accent" />
-    //                 <Facet field="duration" label="Duration" />
-    //               </div>
-    //             }
-    //             bodyContent={<Results shouldTrackClickThrough={true} />}
-    //             bodyHeader={
-    //               <>
-    //                 {wasSearched && <PagingInfo />}
-    //                 {wasSearched && <ResultsPerPage />}
-    //               </>
-    //             }
-    //             bodyFooter={<Paging />}
-    //           />
-    //         </ErrorBoundary>
-    //       </div>
-    //     )}
-    //   </WithSearch>
-    // </SearchProvider>
   );
 }
