@@ -59,16 +59,6 @@ const CustomResultView = ({ result }) => (
   <div className="sui-result">
     <div className="sui-result-row">
       <div>
-        <strong>
-          Filename
-        </strong>
-      </div>
-      <div className="sui-result-value">
-        {result.filename.raw}
-      </div>
-    </div>
-    <div className="sui-result-row">
-      <div>
         <strong>Generated Text</strong>
       </div>
       <div className="sui-result-value">
