@@ -14,6 +14,9 @@ app = Flask(__name__)
 processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-large-960h")
 model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h")
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = model.to(device)
+
 @app.route('/ping', methods=['GET'])
 def ping():
     return "pong", 200
@@ -37,7 +40,7 @@ def asr():
 
         audio_input, _ = librosa.load(wav_file_path, sr=16000)
 
-        input_values = processor(audio_input, return_tensors='pt').input_values
+        input_values = processor(audio_input, return_tensors='pt').input_values.to(device)
         with torch.no_grad():
             logits = model(input_values).logits
         

@@ -1,6 +1,8 @@
 Flask==2.3.2
 librosa==0.11.0
+# pandas==2.2.3
 pydub==0.25.1
-torch==2.2.0+cu121
+Requests==2.32.3
 # torch==2.7.0
+# tqdm==4.67.1
 transformers==4.51.3

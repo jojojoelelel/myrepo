@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.wav
+*.mp3
+cv-valid-dev/
+.git
+.gitignore

@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  asr:
+    build:
+      context: .
+    container_name: asr-api
+    ports:
+      - "8001:8001"
+    command: ["python", "asr_api.py"]

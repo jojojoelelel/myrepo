@@ -81,7 +81,7 @@ const CustomResultView = ({ result }) => (
     </div>
     <div className="sui-result-row">
       <div>
-        <strong>Age:</strong>
+        <strong>Age</strong>
       </div>
       <div className="sui-result-value">
         {result.age.raw}
@@ -89,7 +89,7 @@ const CustomResultView = ({ result }) => (
     </div>
     <div className="sui-result-row">
       <div>
-        <strong>Gender:</strong>
+        <strong>Gender</strong>
       </div> 
       <div className="sui-result-value">
         {result.gender.raw}
@@ -97,7 +97,7 @@ const CustomResultView = ({ result }) => (
     </div>
     <div className="sui-result-row">
       <div>
-        <strong>Accent:</strong>
+        <strong>Accent</strong>
       </div>  
       <div className="sui-result-value">
         {result.accent.raw}
@@ -105,7 +105,7 @@ const CustomResultView = ({ result }) => (
       </div>
     <div className="sui-result-row">
       <div>
-        <strong>Duration:</strong>
+        <strong>Duration</strong>
       </div>
       <div className="sui-result-value">  
         {result.duration.raw}
@@ -128,7 +128,7 @@ export default function App() {
               <Facet className="facet" field="age" label="Age" show={999}/>
               <Facet className="facet" field="gender" label="Gender" show={999}/>
               <Facet className="facet" field="accent" label="Accent" show={999}/>
-              <Facet className="facet" field="duration" label="Duration" show={999}/>
+              <Facet className="facet-last" field="duration" label="Duration" show={999}/>
             </div>
             {wasSearched && (
               <>
