@@ -20,7 +20,7 @@ if not es.indices.exists(index=index_name):
     es.indices.create(index=index_name, body={
         'mappings': {
             'properties': {
-                'filename': { 'type': 'text' },
+                # 'filename': { 'type': 'text' },
                 'generated_text': {'type': 'text'},
                 'duration': {'type': 'float'},
                 'age': {'type': 'keyword'},
@@ -60,7 +60,7 @@ with open(csv_path, mode='r', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         doc = {
-            "filename": row.get("filename").split("/")[1] or None,
+            # "filename": row.get("filename").split("/")[1] or None,
             "generated_text": row.get("generated_text") or None,
             "duration": float(row["duration"]) if row.get("duration") else None,
             "age": row.get("age") or None,

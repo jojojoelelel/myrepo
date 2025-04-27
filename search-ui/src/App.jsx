@@ -21,10 +21,10 @@ const config = {
   searchQuery: {
     search_fields: {
       generated_text: { weight : 3},
-      // duration: {},
+      // filename: {},
     },
     result_fields: {
-      filename: { raw: {}},
+      // filename: { raw: {}},
       generated_text: { raw: {} },
       duration: { raw: {} },
       age: { raw: {} },

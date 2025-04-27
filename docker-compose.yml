@@ -12,15 +12,19 @@ services:
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es01
+    mem_limit: 384m
     environment:
       - node.name=es01
       - cluster.name=cv-cluster
       - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02
-      - bootstrap.memory_lock=true
+      - cluster.initial_master_nodes=es01
+      # - bootstrap.memory_lock=true
+      - bootstrap.memory_lock=false
       - xpack.security.enabled=false
       # - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
+      - xpack.ml.enabled=false
+      - node.roles=master
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
@@ -39,15 +43,19 @@ services:
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es02
+    mem_limit: 384m
     environment:
       - node.name=es02
       - cluster.name=cv-cluster
       - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02
-      - bootstrap.memory_lock=true
+      - cluster.initial_master_nodes=es01
+      # - bootstrap.memory_lock=true
+      - bootstrap.memory_lock=false
       - xpack.security.enabled=false
       # - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
+      - xpack.ml.enabled=false
+      - node.roles=data
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
