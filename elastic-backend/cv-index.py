@@ -2,8 +2,14 @@ import uuid
 from elasticsearch import Elasticsearch
 # from tqdm import tqdm
 
+api_key='Q096TWRwWUJhSFNUM2k1N1U3cUE6NG0zNUpEQkZTLU8tX0Q4S2thbVRXUQ=='
+ca_cert_path = 'path'
+
 es = Elasticsearch(
-    "http://localhost:9200",
+    "https://localhost:9200",
+    api_key=api_key,
+    verify_certs=True,
+    ca_certs=ca_cert_path
 )
 
 try:
