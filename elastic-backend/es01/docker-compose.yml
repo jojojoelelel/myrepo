@@ -7,16 +7,13 @@ services:
     environment:
       - node.name=es01
       - cluster.name=cv-cluster
-      - discovery.seed_hosts=es02:9300
-      # - discovery.seed_hosts=localhost:9201
+      # - discovery.seed_hosts=es02:9300
+      - discovery.seed_hosts=172.31.14.56:9300
       - cluster.initial_master_nodes=es01
-      # - bootstrap.memory_lock=true
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
-      # - ES_JAVA_OPTS=-Xms1g -Xmx1g
       - ES_JAVA_OPTS=-Xms256m -Xmx256m
       - xpack.ml.enabled=false
-      # - node.roles=master
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
@@ -29,12 +26,13 @@ services:
       - esdata01:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
-    networks:
-      - esnet
+      - '9300:9300'
+    # networks:
+    #   - esnet
 
 volumes:
   esdata01:
 
-networks:
-  esnet:
-    external: true
+# networks:
+#   esnet:
+#     external: true
