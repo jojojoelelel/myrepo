@@ -3,7 +3,7 @@ services:
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es01
-    mem_limit: 400m
+    mem_limit: 512m
     environment:
       - network.host=0.0.0.0
       - node.name=es01
@@ -13,7 +13,7 @@ services:
       - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms192m -Xmx192m
+      - ES_JAVA_OPTS=-Xms256m -Xmx256m
       - xpack.ml.enabled=false
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
@@ -28,12 +28,12 @@ services:
     ports:
       - '9200:9200'
       - '9300:9300' # for deployment, comment for local
-    networks: # needed for local
-      - esnet
+    # networks: # needed for local
+    #   - esnet
 
 volumes:
   esdata01:
 
-networks: # needed for local
-  esnet:
-    external: true
+# networks: # needed for local
+#   esnet:
+#     external: true
