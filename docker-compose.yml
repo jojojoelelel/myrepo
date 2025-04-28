@@ -16,8 +16,8 @@ services:
     environment:
       - node.name=es01
       - cluster.name=cv-cluster
-      # - discovery.seed_hosts=es01:9200,es02:9201
-      - discovery.seed_hosts=es02,es01
+      # - discovery.seed_hosts=es02,es01
+      - discovery.seed_hosts=es02:9300
       - cluster.initial_master_nodes=es01
       # - bootstrap.memory_lock=true
       - bootstrap.memory_lock=false
@@ -48,9 +48,9 @@ services:
     environment:
       - node.name=es02
       - cluster.name=cv-cluster
-      # - discovery.seed_hosts=es01:9200,es02:9201
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01
+      # - discovery.seed_hosts=es01,es02
+      - discovery.seed_hosts=es01:9300
+      # - cluster.initial_master_nodes=es01
       # - bootstrap.memory_lock=true
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
