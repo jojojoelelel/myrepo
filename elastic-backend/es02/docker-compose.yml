@@ -10,7 +10,7 @@ services:
       - discovery.seed_hosts=172.31.14.196:9300
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
       - xpack.ml.enabled=false
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
@@ -24,13 +24,13 @@ services:
       - esdata02:/usr/share/elasticsearch/data
     ports:
       - '9201:9200'
-      - '9300:9300'
-    # networks:
+      - '9300:9300' # for deployment, comment out for local
+    # networks: # needed for local
     #   - esnet
 
 volumes:
   esdata02:
 
-# networks:
+# networks: # needed for local
 #   esnet:
 #     external: true
