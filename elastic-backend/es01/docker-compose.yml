@@ -12,7 +12,7 @@ services:
       - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms256m -Xmx256m
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
       - xpack.ml.enabled=false
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
@@ -26,13 +26,13 @@ services:
       - esdata01:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
-      - '9300:9300'
-    # networks:
+      - '9300:9300' # for deployment, comment for local
+    # networks: # needed for local
     #   - esnet
 
 volumes:
   esdata01:
 
-# networks:
+# networks: # needed for local
 #   esnet:
 #     external: true
