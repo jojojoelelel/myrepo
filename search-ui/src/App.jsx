@@ -14,7 +14,7 @@ import "./App.css"
 
 const connector = new ElasticsearchAPIConnector({
   // host: "http://localhost:9200", // for local
-  host: "172.31.14.196:9200",
+  host: "http://172.31.14.196:9200",
   index: "cv-transcriptions",
 });
 
