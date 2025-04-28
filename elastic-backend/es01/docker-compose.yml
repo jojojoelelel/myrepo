@@ -9,8 +9,7 @@ services:
       - node.name=es01
       - cluster.name=cv-cluster
       - discovery.seed_hosts=172.31.14.56:9300,172.31.14.196:9300
-      # - cluster.initial_master_nodes=172.31.14.196:9300,172.31.14.56:9300
-      - cluster.initial_master_nodes=es01
+      # - cluster.initial_master_nodes=es01 # only for initial
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC
