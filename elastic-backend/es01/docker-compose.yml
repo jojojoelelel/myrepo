@@ -37,4 +37,4 @@ volumes:
 
 networks: # needed for local
   esnet:
-    driver: bridge
+    external: true

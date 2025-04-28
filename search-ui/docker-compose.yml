@@ -13,4 +13,4 @@
 
   networks:
     esnet:
-      driver: bridge
+      external: true
