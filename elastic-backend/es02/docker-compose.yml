@@ -6,10 +6,12 @@ services:
     mem_limit: 512m
     environment:
       # - network.host=0.0.0.0
+      - network.publish_host=172.31.14.56   # <-- es02's EC2 private IP
+      - transport.publish_host=172.31.14.56 # <-- es02's EC2 private IP
       - node.name=es02
       - cluster.name=cv-cluster
       - discovery.seed_hosts=172.31.14.196:9300
-      - cluster.initial_master_nodes=172.31.14.196:9300
+      # - cluster.initial_master_nodes=172.31.14.196:9300
       # - cluster.initial_master_nodes=es01,es02
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
