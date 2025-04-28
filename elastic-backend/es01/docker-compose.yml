@@ -28,12 +28,12 @@ services:
     ports:
       - '9200:9200'
       - '9300:9300' # for deployment, comment for local
-    # networks: # needed for local
-    #   - esnet
+    networks: # needed for local
+      - esnet
 
 volumes:
   esdata01:
 
-# networks: # needed for local
-#   esnet:
-#     external: true
+networks: # needed for local
+  esnet:
+    external: true
