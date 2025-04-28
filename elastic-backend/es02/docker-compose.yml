@@ -3,14 +3,14 @@ services:
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es02
-    mem_limit: 384m
+    mem_limit: 512m
     environment:
       - node.name=es02
       - cluster.name=cv-cluster
       - discovery.seed_hosts=172.31.14.196:9300
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms192m -Xmx192m
+      - ES_JAVA_OPTS=-Xms128m -Xmx128m
       - xpack.ml.enabled=false
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
