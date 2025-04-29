@@ -6,12 +6,12 @@ services:
     mem_limit: 512m
     environment:
       - network.host=0.0.0.0
-      - network.publish_host=172.31.14.196  # <-- es01's private IP
-      - transport.publish_host=172.31.14.196  # <-- es01's private IP for transport communication
+      - network.publish_host=0.0.0.0
+      - transport.publish_host=0.0.0.0
       - node.name=es01
       - cluster.name=cv-cluster
-      - discovery.seed_hosts=172.31.14.56:9300,172.31.14.196:9300
-      # - cluster.initial_master_nodes=es01 # only for initial
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC
@@ -28,7 +28,7 @@ services:
       - esdata01:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
-      - '9300:9300' # for deployment, comment for local
+      # - '9300:9300' # for deployment, comment for local
     networks: # needed for local
       - esnet
 
