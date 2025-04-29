@@ -60,9 +60,9 @@ services:
       - esnet
 
   es01:
-    # depends_on: # Leave in if first time set up, Comment out for subsequent runs
-    #   setup: # Leave in if first time set up, Comment out for subsequent runs
-    #     condition: service_healthy # Leave in if first time set up, Comment out for subsequent runs
+    depends_on: # Leave in if first time set up, Comment out for subsequent runs
+      setup: # Leave in if first time set up, Comment out for subsequent runs
+        condition: service_healthy # Leave in if first time set up, Comment out for subsequent runs
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es01
     mem_limit: 512m
