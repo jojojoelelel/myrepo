@@ -104,6 +104,7 @@ services:
 
 volumes:
   esdata01:
+  certs:
 
 networks: # needed for local
   esnet:
