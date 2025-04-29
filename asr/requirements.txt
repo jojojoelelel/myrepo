@@ -1,8 +1,16 @@
+# libraries for asr_api.py
 Flask==2.3.2
 librosa==0.11.0
-# pandas==2.2.3
 pydub==0.25.1
-Requests==2.32.3
-# torch==2.7.0
-# tqdm==4.67.1
+tqdm==4.67.1
 transformers==4.51.3
+# torch cpu installed in docker compose
+
+# libraries for cv-decode.py
+Requests==2.32.3
+
+# libraries for cv-index.py to index cv-valid-dev.csv into elasticsearch service
+elasticsearch==8.12.1
+
+# others
+dotenv==0.9.9
