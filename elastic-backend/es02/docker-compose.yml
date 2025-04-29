@@ -3,38 +3,55 @@ services:
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es02
-    mem_limit: 512m
+    mem_limit: 512m # Memory limit to prevent Out of Memory errors in production
+    env_file:
+      - ../.env
     environment:
+    # Network settings
       - network.host=0.0.0.0
       - network.publish_host=0.0.0.0
       - transport.publish_host=0.0.0.0
+    # Node settings
       - node.name=es02
       - cluster.name=cv-cluster
       - discovery.seed_hosts=es01
       - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
-      - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC
       - xpack.ml.enabled=false
+    # Security settings
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.authc.api_key.enabled=true
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certs/es02/es02.key
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certs/es02/es02.crt
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certs/ca/ca.crt
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.license.self_generated.type=basic
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
-      - http.cors.allow-headers=Content-Type, x-elastic-client-meta
+      - http.cors.allow-headers=Authorization,Content-Type,x-elastic-client-meta
+      - http.cors.allow-credentials=true
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - esdata02:/usr/share/elasticsearch/data
+      - certs:/usr/share/elasticsearch/config/certs
     ports:
       - '9201:9200'
-      # - '9300:9300' # for deployment, comment out for local
-    networks: # needed for local
+      # - '9300:9300' # Only leave this in for deployment, comment out for local. Deployment runs both nodes in separate ec2 instances.
+    networks:
       - esnet
 
 volumes:
   esdata02:
+  certs:
+    external: true
 
-networks: # needed for local
+networks:
   esnet:
     external: true

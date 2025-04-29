@@ -1,40 +1,115 @@
 version: '3.7'
 services:
+# Setup service is only required to be run the first time the cluster is started
+# First time setup: Leave lines 6-56 & 59-61 in.
+# Subsequent times: Comment out lines 6-56 & 59-61. (To save RAM for production)
+  # setup:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+  #   volumes:
+  #     - certs:/usr/share/elasticsearch/config/certs
+  #   user: "0"
+  #   environment:
+  #     - ELASTIC_PASSWORD=123456
+  #   command: >
+  #     bash -c '
+  #       if [ ! -f config/certs/ca.zip ]; then
+  #         echo "Creating CA";
+  #         bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
+  #         unzip config/certs/ca.zip -d config/certs;
+  #       fi;
+  #       if [ ! -f config/certs/certs.zip ]; then
+  #         echo "Creating certs";
+  #         echo -ne \
+  #         "instances:\n"\
+  #         "  - name: es01\n"\
+  #         "    dns:\n"\
+  #         "      - es01\n"\
+  #         "      - localhost\n"\
+  #         "    ip:\n"\
+  #         "      - 127.0.0.1\n"\
+  #         "  - name: es02\n"\
+  #         "    dns:\n"\
+  #         "      - es02\n"\
+  #         "      - localhost\n"\
+  #         "    ip:\n"\
+  #         "      - 127.0.0.1\n"\
+  #         > config/certs/instances.yml;
+  #         bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+  #         unzip config/certs/certs.zip -d config/certs;
+  #       fi;
+  #       echo "Setting file permissions"
+  #       chown -R root:root config/certs;
+  #       find . -type d -exec chmod 750 \{\} \;;
+  #       find . -type f -exec chmod 640 \{\} \;
+  #       echo "Waiting for Elasticsearch availability";
+  #       until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
+  #       echo "Setting elastic password";
+  #       until curl -s -X POST --cacert config/certs/ca/ca.crt -u "elastic:123456" -H "Content-Type: application/json" https://es01:9200/_security/user/elastic/_password -d "{\"password\":\"123456\"}" | grep -q "^{}"; do sleep 10; done;
+  #       echo "All done!";
+  #     '
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ] && [ -f config/certs/es02/es02.crt ]"]
+  #     interval: 1s
+  #     timeout: 5s
+  #     retries: 120
+  #   networks:
+  #     - esnet
+
   es01:
+    # depends_on: # Leave in if first time set up, Comment out for subsequent runs
+    #   setup: # Leave in if first time set up, Comment out for subsequent runs
+    #     condition: service_healthy # Leave in if first time set up, Comment out for subsequent runs
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es01
-    mem_limit: 512m
+    mem_limit: 512m # Memory limit to prevent Out of Memory errors in production
+    env_file:
+      - ../.env
     environment:
+    # Network settings
       - network.host=0.0.0.0
       - network.publish_host=0.0.0.0
       - transport.publish_host=0.0.0.0
+    # Node settings
       - node.name=es01
       - cluster.name=cv-cluster
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
-      - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC
       - xpack.ml.enabled=false
+    # Security settings
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.authc.api_key.enabled=true
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certs/es01/es01.key
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certs/es01/es01.crt
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certs/ca/ca.crt
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.license.self_generated.type=basic
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
-      - http.cors.allow-headers=Content-Type, x-elastic-client-meta
+      - http.cors.allow-headers=Authorization,Content-Type,x-elastic-client-meta
+      - http.cors.allow-credentials=true
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - esdata01:/usr/share/elasticsearch/data
+      - certs:/usr/share/elasticsearch/config/certs
     ports:
       - '9200:9200'
-      # - '9300:9300' # for deployment, comment for local
-    networks: # needed for local
+      # - '9300:9300' # Only leave this in for deployment, comment out for local. Deployment runs both nodes in separate ec2 instances.
+    networks:
       - esnet
 
 volumes:
   esdata01:
+  certs:
+    external: true
 
-networks: # needed for local
+networks:
   esnet:
     external: true
