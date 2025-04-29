@@ -5,13 +5,12 @@ services:
     container_name: es02
     mem_limit: 512m
     environment:
-      # - network.host=172.31.14.56
-      - network.publish_host=172.31.14.56   # <-- es02's EC2 private IP
-      - transport.publish_host=172.31.14.56 # <-- es02's EC2 private IP
+      - network.publish_host=172.31.14.56
+      - transport.publish_host=172.31.14.56
       - node.name=es02
       - cluster.name=cv-cluster
-      - discovery.seed_hosts=172.31.14.196:9300
-      - cluster.initial_master_nodes=172.31.14.196:9300
+      - discovery.seed_hosts=172.31.14.196:9300,172.31.14.56:9300
+      - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=false
@@ -34,7 +33,7 @@ services:
         hard: -1
     volumes:
       - esdata02:/usr/share/elasticsearch/data
-      - ./certs:/usr/share/elasticsearch/config/certs
+      - ../certs:/usr/share/elasticsearch/config/certs
     ports:
       - '9201:9200'
       - '9300:9300' # for deployment, comment out for local
