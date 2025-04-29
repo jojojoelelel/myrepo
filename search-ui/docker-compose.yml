@@ -1,10 +1,16 @@
-version: '3.7'
+  version: '3.7'
 
-services:
-  search-ui:
-    build:
-      context: .
-    container_name: search_ui
-    ports:
-      - "3000:3000"
-    command: ["serve", "-s", "dist", "-l", "3000"]
+  services:
+    search-ui:
+      build:
+        context: .
+      container_name: search_ui
+      ports:
+        - "3000:3000"
+      command: ["serve", "-s", "dist", "-l", "3000"]
+      networks:
+        - esnet
+
+  networks:
+    esnet:
+      external: true
