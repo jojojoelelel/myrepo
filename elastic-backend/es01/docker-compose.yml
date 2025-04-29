@@ -45,6 +45,10 @@ services:
         chown -R root:root config/certs;
         find . -type d -exec chmod 750 \{\} \;;
         find . -type f -exec chmod 640 \{\} \;
+        echo "Waiting for Elasticsearch availability";
+        until curl -s -k https://localhost:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
+        echo "Setting elastic password";
+        curl -k -X POST -u elastic:changeme https://localhost:9200/_security/user/elastic/_password -H "Content-Type: application/json" -d "{\"password\":\"123456\"}";
         echo "All done!";
       '
     healthcheck:
