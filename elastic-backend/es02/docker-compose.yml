@@ -5,7 +5,7 @@ services:
     container_name: es02
     mem_limit: 512m
     environment:
-      - network.host=172.31.14.56
+      # - network.host=172.31.14.56
       - network.publish_host=172.31.14.56   # <-- es02's EC2 private IP
       - transport.publish_host=172.31.14.56 # <-- es02's EC2 private IP
       - node.name=es02
