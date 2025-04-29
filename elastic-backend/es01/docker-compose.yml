@@ -6,7 +6,7 @@ services:
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     volumes:
-      - certs:/usr/share/elasticsearch/config/certs
+      - ../certs:/usr/share/elasticsearch/config/certs
     user: "0"
     environment:
       - ELASTIC_PASSWORD=123456
@@ -91,7 +91,7 @@ services:
         hard: -1
     volumes:
       - esdata01:/usr/share/elasticsearch/data
-      - ./certs:/usr/share/elasticsearch/config/certs
+      - ../certs:/usr/share/elasticsearch/config/certs
     ports:
       - '9200:9200'
       - '9300:9300' # for deployment, comment for local
@@ -100,7 +100,6 @@ services:
 
 volumes:
   esdata01:
-  certs:
 
 networks: # needed for local
   esnet:
