@@ -8,8 +8,8 @@ services:
     volumes:
       - ../certs:/usr/share/elasticsearch/config/certs
     user: "0"
-    environment:
-      - ELASTIC_PASSWORD=123456
+    # environment:
+    #   - ELASTIC_PASSWORD=123456
     command: >
       bash -c '
         if [ ! -f config/certs/ca.zip ]; then
