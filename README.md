@@ -51,7 +51,7 @@ pip install -r requirements.txt
 ```bash
 cd asr
 docker-compose up
-curl http://localhost:9200/ping 
+curl http://localhost:8001/ping 
 ```
 Should receive 'pong' if asr-api service is running correctly
 
