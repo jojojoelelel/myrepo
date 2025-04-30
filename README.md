@@ -4,6 +4,7 @@
 
 - `main`: Codebase for **local development**.
 - `deployment`: Codebase used for **deployment to AWS**.
+- 
 You can access the deployed application here: [http://3.107.8.57:3000](http://3.107.8.57:3000)
 Information of the deployment can be found in the deployment branch
 
