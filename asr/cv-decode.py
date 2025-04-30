@@ -1,48 +1,31 @@
+# Import Libraries
 import requests
-import pandas as pd
+import os
+import csv
+from tqdm import tqdm
 
-# Update this path to your cv-valid-dev folder
-data_folder = 'cv-valid-dev'
-csv_file = 'cv-valid-dev.csv'
+# Folder paths
+input_folder = 'input'
+output_folder = 'output'
+
+input_csv_file = os.path.join(input_folder, 'cv-valid-dev.csv')
+output_csv_file = os.path.join(output_folder, 'cv-valid-dev.csv')
+
 api_url = 'http://localhost:8001/asr'
 
-# # Load CSV
-# df = pd.read_csv(csv_file)
-
-# # Add empty column for generated text
-# df['generated_text'] = ""
-
-# for idx, row in tqdm(df.iterrows(), total=len(df)):
-#     file_path = row['filename']
-
-#     try:
-#         with open(file_path, 'rb') as f:
-#             files = {'file': f}
-#             response = requests.post(api_url, files=files)
-#             data = response.json()
-
-#             df.at[idx, 'generated_text'] = data.get('transcription', '')
-#             df.at[idx, 'duration'] = data.get('duration', '')
-
-#     except Exception as e:
-#         print(f"Failed on file {file_path}: {e}")
-
-# # Save the updated CSV
-# df.to_csv(csv_file, index=False)
-# print("Transcriptions saved.")
-
-import csv
-
+# List to store updated records
 updated_rows = []
 
-with open(csv_file, mode='r', newline='', encoding='utf-8') as infile:
+# Open input csv file
+with open(input_csv_file, mode='r', newline='', encoding='utf-8') as infile:
     reader = csv.DictReader(infile)
+    # Add generated_text column to field names
     fieldnames = reader.fieldnames + ['generated_text']
-    for i, row in enumerate(reader):
-        if i >= 20:
-            break
+    # Iterate over records in input csv file
+    for row in tqdm(reader):
+        # Get file path
         file_path = row['filename']
-
+        # Call ASR API
         try:
             with open(file_path, 'rb') as f:
                 response = requests.post(api_url, files={'file': f})
@@ -55,11 +38,17 @@ with open(csv_file, mode='r', newline='', encoding='utf-8') as infile:
             row['generated_text'] = ''
             row['duration'] = ''
 
+        # Append updated record to list
         updated_rows.append(row)
 
-with open(csv_file, mode='w', newline='', encoding='utf-8') as outfile:
+# Open output csv file
+with open(output_csv_file, mode='w', newline='', encoding='utf-8') as outfile:
+    # Create writer object
     writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+    # Write header
     writer.writeheader()
+    # Write list into output csv file
     writer.writerows(updated_rows)
 
+# Acknowledgement
 print("Transcriptions saved.")

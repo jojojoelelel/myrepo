@@ -3,19 +3,22 @@ services:
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
     container_name: es01
-    mem_limit: 512m
+    mem_limit: 512m # Memory limit to prevent out of memory errors in production
     environment:
-      - network.host=0.0.0.0
-      - network.publish_host=172.31.14.196  # <-- es01's private IP
-      - transport.publish_host=172.31.14.196  # <-- es01's private IP for transport communication
+    # Network settings
+      - network.host=0.0.0.0 
+      - network.publish_host=172.31.14.196 # ES01's ec2 private IP
+      - transport.publish_host=172.31.14.196 # ES01's ec2 private IP
+    # Node settings
       - node.name=es01
       - cluster.name=cv-cluster
       - discovery.seed_hosts=172.31.14.56:9300,172.31.14.196:9300
-      - cluster.initial_master_nodes=es01 # only for initial
+      - cluster.initial_master_nodes=es01
       - bootstrap.memory_lock=false
-      - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC
+      - ES_JAVA_OPTS=-Xms128m -Xmx128m -XX:+UseG1GC # Heap size for Elasticsearch + Garbage Collector
       - xpack.ml.enabled=false
+    # Security settings
+      - xpack.security.enabled=false
       - http.cors.enabled=true
       - http.cors.allow-origin="*"
       - http.cors.allow-methods=OPTIONS,GET,POST
@@ -28,13 +31,13 @@ services:
       - esdata01:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
-      - '9300:9300' # for deployment, comment for local
-    networks: # needed for local
+      - '9300:9300' # For communciation in deployment
+    networks:
       - esnet
 
 volumes:
   esdata01:
 
-networks: # needed for local
+networks:
   esnet:
     external: true
