@@ -16,7 +16,7 @@ The following branches were used for development and testing
   
 ---
 
-## Instructions for Running Locally : `main` branch
+## Instructions for Setting Up and Running Locally : `main` branch
 
 ### **1. Getting Started**
 
@@ -63,13 +63,13 @@ python cv-decode.py
 ```
 `cv-decode.py` will 
 
-i. Read `input/cv-valid-dev.csv`
+i. Read `/input/cv-valid-dev.csv`
 
 ii. Call the `/asr` API on each mp3 file in `cv-valid-dev` folder
 
 iii. Write the `generated_text` and `duration` obtained from the `/asr` API into new columns
 
-iv. Save it into `output/cv-valid-dev.csv`
+iv. Save it into `/output/cv-valid-dev.csv`
 
 ### 3. Elastic Backend
 
@@ -108,14 +108,14 @@ if `certs` volume was created properly
 #### d. Start up the es01 service in the `/elastic-backend/es02`
 ##### es01 is the first node in the cluster
 ```bash
-cd es01
+cd elastic-backend/es01
 docker-compose up
 ```
 
 #### e. Start up the es02 service in the `/elastic-backend/es02`
 ##### es02 is the second node in the cluster
 ```bash
-cd es02
+cd elastic-backend/es02
 docker-compose up
 ```
 
@@ -199,3 +199,36 @@ docker-compose up
 ```
 
 Search-ui frontend will be availabe at [http://localhost:3000](http://localhost:3000)
+
+## On Subsequent Runs (After First-time Setup completed)
+
+### 1. Comment out `setup` service
+Comment out lines `6-56` and `59-61` in `/es01/docker-compose.yml`
+This is because the `setup` service is no longer needed as the certs are stored in the `certs` volume created
+
+Since `es01` service depends on `setup` service, comment lines `59-61` out so that `es01` service can run without `setup` service
+
+### 2. Run `es01`, `es02`, and `search-ui` services
+#### a. Up `es01` service
+```bash
+cd elastic-backend/es01
+docker-compose up
+```
+
+#### b. Up `es02` service
+```bash
+cd elastic-backend/es02
+docker-compose up
+```
+
+#### c. Up `search-ui` service
+```bash
+cd search-ui
+docker-compose up
+```
+
+Search-ui frontend will be availabe at [http://localhost:3000](http://localhost:3000)
+### Note 
+`asr-api` service is no longer needed as the mp3 files in `/asr/cv-valid-dev` have been processed and the **transcriptions** and **duration** have been stored in `/output/cv-valid-dev.csv`
+
+`/elastic-backend/cv-index.py` does not have to be run again as `/elastic-backend/cv-davlid-dev.csv` has been indexed as `cv-transcriptions`
