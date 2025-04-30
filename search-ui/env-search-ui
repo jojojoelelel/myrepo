@@ -1,0 +1,12 @@
+######## Search-UI ENVIRONMENT VARIABLES ########
+
+# Elasticsearch connector configurations
+# VITE_REACT_APP_Elasticsearch_Host='http://3.107.8.57:9200' # FOR DEPLOYMENT - Public IP address of the ec2 instance with search-ui
+VITE_REACT_APP_Elasticsearch_Host='http://localhost:9200' # FOR LOCAL
+
+# Elasticsearch API keys
+VITE_REACT_APP__API_Key_ID=''
+VITE_REACT_APP__API_Key=''
+VITE_REACT_APP_Encoded_API_Key='' # SAVE generated API key here.
+# For eg VITE_REACT_APP_Encoded_API_Key=abcdef123456'
+

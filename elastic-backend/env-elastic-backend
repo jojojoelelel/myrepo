@@ -1,0 +1,9 @@
+######## CV-INDEX.PY ENVIRONMENT VARIABLES ########
+
+# Password for the 'elastic' user (at least 6 characters)
+ELASTIC_PASSWORD=123456
+
+ES_HOST='http://localhost:9200' # LOCAL
+
+
+
