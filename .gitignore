@@ -3,3 +3,4 @@ cv-valid-dev/
 node_modules
 .env
 dist/
+myenv2/

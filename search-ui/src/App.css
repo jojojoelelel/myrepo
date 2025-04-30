@@ -158,3 +158,16 @@
   border: solid 1px #718dad;
   /* background-color: yellow; */
 }
+
+.rc-pagination.sui-paging {
+  justify-content: center;
+}
+
+.sui-paging .rc-pagination-item a  {
+  color: white
+}
+
+.rc-pagination-item-link {
+  justify-content: center;
+  align-items: center;
+}
