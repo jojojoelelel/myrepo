@@ -24,11 +24,16 @@ The following branches were used for development and testing
 In the project root directory `/myrepo/` :
 
 ```bash
+cd myrepo
 python -m venv myenv
 ```
 #### b. Activate virtual environment
 ```bash
+# Windows
 myenv\Scripts\Activate
+
+# Ubuntu/Linux
+source myenv/bin/activate
 ```
 #### c. Install dependencies 
 ```bash
