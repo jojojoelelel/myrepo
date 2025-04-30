@@ -63,7 +63,9 @@ iv. Save it into `output/cv-valid-dev.csv`
 ### 3. Elastic Backend
 For first-time setup
 
-#### a. Create docker network `esnet`
+#### a. Rename the `env-elastic-backend` file in `/elastic-backend/` directory to `.env`
+
+#### b. Create docker network `esnet`
 ```bash
 docker network create esnet
 ```
@@ -78,7 +80,7 @@ esnet  bridge
 ```
 if `esnet` network was created properly
 
-#### b. Create docker volume `certs`
+#### c. Create docker volume `certs`
 ```bash
 docker volume create certs
 ```
@@ -93,21 +95,21 @@ local    certs
 ```
 if `certs` volume was created properly
 
-#### c. Start up the es01 service in the `/elastic-backend/es02`
+#### d. Start up the es01 service in the `/elastic-backend/es02`
 ##### es01 is the first node in the cluster
 ```bash
 cd es01
 docker-compose up
 ```
 
-#### d. Start up the es02 service in the `/elastic-backend/es02`
+#### e. Start up the es02 service in the `/elastic-backend/es02`
 ##### es02 is the second node in the cluster
 ```bash
 cd es02
 docker-compose up
 ```
 
-#### e. Ensure that the backend service is running properly
+#### f. Ensure that the backend service is running properly
 ```bash
 curl -u elastic:123456 http://localhost:9200/_cluster/health?pretty 
 ```
@@ -119,8 +121,8 @@ Should see
 ```
 if Elasticsearch service is running properly
 
-#### If first time set up, do step `f-g` (Indexing), else skip to `Step 4`
-#### f. Indexing
+#### If first time set up, do step `g-h` (Indexing), else skip to `Step 4`
+#### g. Indexing
 1. Check that the index `cv-transcriptions` does not exist
 ```bash
 curl -u elastic:123456 -X POST http://localhost:9200/cv-transcriptions/_search?pretty
@@ -157,7 +159,7 @@ Should see
 ```
 if `cv-transcriptions` has been added successfully
 
-g. API key generation
+h. API key generation
 An API Key is required to access the Elasticsearch client from the search-ui client
 1. Create an API key with curl request
 ```bash
