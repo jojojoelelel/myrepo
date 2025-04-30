@@ -1,13 +1,19 @@
 # CV Transcription Search App
 
+## Live Deployed Application
+You can access the deployed application here: [http://3.107.8.57:3000](http://3.107.8.57:3000)
+Information of the deployment can be found in the `deployment` branch
+
 ## Branches
 
-- `main`: Codebase for **local development**.
-- `deployment`: Codebase used for **deployment to AWS**.
-  
-You can access the deployed application here: [http://3.107.8.57:3000](http://3.107.8.57:3000)
-Information of the deployment can be found in the deployment branch
+- `main`: Codebase for **local development**
+- `deployment`: Codebase used for **deployment to AWS**
 
+The following branches were used for development and testing
+- `local`: Branch for local testing
+- `multiple-instances`: Branch used when I decided to run the 2 nodes on separate docker services so that I could deploy them on separate instances
+- `security-branch`: Branch used for testing the security features, which were implemented in `main` but not in `deployment` (see `deployment` branch `README.MD` for more details)
+  
 ---
 
 ## Instructions for Running Locally : `main` branch
