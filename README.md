@@ -61,7 +61,6 @@ iii. Write the `generated_text` and `duration` obtained from the `/asr` API into
 iv. Save it into `output/cv-valid-dev.csv`
 
 ### 3. Elastic Backend
-For first-time setup
 
 #### a. Rename the `env-elastic-backend` file in `/elastic-backend/` directory to `.env`
 
@@ -121,7 +120,7 @@ Should see
 ```
 if Elasticsearch service is running properly
 
-#### If first time set up, do step `g-h` (Indexing), else skip to `Step 4`
+#### If `cv-transcriptions` index has not been added, do step `g-h` (Indexing), else skip to `Step 4`
 #### g. Indexing
 1. Check that the index `cv-transcriptions` does not exist
 ```bash
@@ -174,7 +173,8 @@ Should see
 ```
 if API key was generated successfully
 
-2. Save the *encoded* api key into `search-ui/.env`
+2. Rename the `env-search-ui` file in `/search-ui/` directory to `.env`
+3. Save the *encoded* api key into `search-ui/.env`
 ```bash
 VITE_REACT_APP_Encoded_API_Key='...=='
 ```
