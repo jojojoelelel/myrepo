@@ -19,15 +19,15 @@ The following branches were used for development and testing
 ## Instructions for Setting Up and Running Locally : `main` branch
 
 ### **1. Getting Started**
-
-#### a. Create a virtual environment
+#### a. Install Docker
+#### b. Create a virtual environment
 In the project root directory `/myrepo/` :
 
 ```bash
 cd myrepo
 python -m venv myenv
 ```
-#### b. Activate virtual environment
+#### c. Activate virtual environment
 ```bash
 # Windows
 myenv\Scripts\Activate
@@ -35,7 +35,7 @@ myenv\Scripts\Activate
 # Ubuntu/Linux
 source myenv/bin/activate
 ```
-#### c. Install dependencies 
+#### d. Install dependencies 
 ```bash
 cd asr
 pip install -r requirements.txt
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 ```bash
 cd asr
 docker-compose up
-curl http://localhost:9200/ping 
+curl http://localhost:8001/ping 
 ```
 Should receive 'pong' if asr-api service is running correctly
 
