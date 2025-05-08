@@ -1,7 +1,7 @@
 # CV Transcription Search App
 
 ## Live Deployed Application
-You can access the deployed application here: [http://3.107.8.57:3000](http://3.107.8.57:3000)
+You can access the deployed application here: [http://3.107.203.157:3000](http://3.107.203.157:3000)
 Information of the deployment can be found in the `deployment` branch
 
 ## Branches
